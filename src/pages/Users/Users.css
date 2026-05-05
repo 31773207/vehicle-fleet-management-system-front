@@ -1,0 +1,245 @@
+/* Users Page - Clean Design */
+.users-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 32px;
+}
+
+.users-title {
+  font-size: 45px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
+  position: relative;
+  display: inline-block;
+}
+
+.users-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: #3b82f6;
+  border-radius: 2px;
+}
+
+.users-subtitle {
+  color: #ffffff;
+  font-size: 20px;
+  margin: 0;
+}
+
+/* Add User Button */
+.add-user-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #3b82f6;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-user-btn:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+}
+
+.add-user-btn i {
+  font-size: 14px;
+}
+
+/* Table Wrapper */
+.users-table-wrapper {
+  background: #1f2937cf;
+  border-radius: 12px;
+  border: 1px solid #374151;
+  overflow-x: auto;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.users-table thead tr {
+  border-bottom: 1px solid #374151;
+}
+
+.users-table th {
+  padding: 16px 20px;
+  text-align: left;
+  color: #9ca3af;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  background: #2a3c64b6;
+}
+
+.users-table tbody tr {
+  border-bottom: 1px solid #37415141;
+  transition: background 0.2s ease;
+}
+
+.users-table tbody tr:hover {
+  background: #78abfc53;
+}
+
+.users-table td {
+  padding: 16px 20px;
+  color: #f3f4f6;
+  font-size: 17px;
+}
+
+/* User Name - No Avatar */
+.user-name {
+  font-weight: 500;
+  color: #f3f4f6;
+}
+
+.user-email {
+  color: #d1d5db;
+}
+
+/* Role Badge */
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Status Badge */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status-badge.active {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+}
+
+.status-badge.inactive {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* Actions */
+.user-actions-cell {
+  text-align: right;
+}
+
+.user-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn.edit {
+  background: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+}
+
+.icon-btn.edit:hover {
+  background: #3b82f6;
+  color: white;
+}
+
+.icon-btn.activate {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+}
+
+.icon-btn.activate:hover {
+  background: #10b981;
+  color: white;
+}
+
+.icon-btn.deactivate {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+}
+
+.icon-btn.deactivate:hover {
+  background: #f59e0b;
+  color: white;
+}
+
+.icon-btn.delete {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+}
+
+.icon-btn.delete:hover {
+  background: #ef4444;
+  color: white;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #9ca3af;
+}
+
+.empty-state i {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.empty-state p {
+  font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .users-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .users-table th:nth-child(2),
+  .users-table td:nth-child(2) {
+    display: none;
+  }
+}

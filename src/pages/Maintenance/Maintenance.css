@@ -1,0 +1,236 @@
+/* ===== MAINTENANCE PAGE CSS ===== */
+
+/* Container */
+.maintenance-container {
+  width: 100%;
+  padding: 20px;
+}
+
+/* Header */
+.maintenance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.maintenance-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #FFD700;
+  margin: 0;
+}
+
+/* Table Styles */
+.maintenance-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+.maintenance-table thead {
+  background-color: rgba(255, 215, 0, 0.1);
+}
+
+.maintenance-table thead th {
+  padding: 12px;
+  text-align: left;
+  color: #FFD700;
+  font-weight: 600;
+  border-bottom: 2px solid rgba(255, 215, 0, 0.2);
+}
+
+.maintenance-table tbody tr {
+  border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+.maintenance-table tbody tr:hover {
+  background-color: rgba(255, 215, 0, 0.05);
+}
+
+.maintenance-table tbody td {
+  padding: 12px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Status Badges */
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  min-width: 90px;
+}
+
+.status-scheduled {
+  background-color: rgba(255, 193, 7, 0.2);
+  color: #FFC107;
+  border: 1px solid rgba(255, 193, 7, 0.5);
+}
+
+.status-in-progress {
+  background-color: rgba(33, 150, 243, 0.2);
+  color: #2196F3;
+  border: 1px solid rgba(33, 150, 243, 0.5);
+}
+
+.status-completed {
+  background-color: rgba(76, 175, 80, 0.2);
+  color: #4CAF50;
+  border: 1px solid rgba(76, 175, 80, 0.5);
+}
+
+/* Alternative Status Badges (using CSS variables) */
+.maintenance-status {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.btn-edit, .btn-delete {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-edit {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-edit:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+
+/* Cards */
+.maintenance-card {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid var(--border);
+}
+
+/* Summary Cards */
+.summary-card {
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  padding: 14px 16px;
+  border-left: 3px solid;
+  backdrop-filter: blur(8px);
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  color: #FFD700;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: 10px 12px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: #FFD700;
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+}
+
+.form-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .maintenance-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .maintenance-table {
+    font-size: 12px;
+  }
+
+  .maintenance-table th,
+  .maintenance-table td {
+    padding: 8px;
+  }
+
+  .status-badge {
+    min-width: 70px;
+    padding: 4px 8px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .btn-edit,
+  .btn-delete {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .maintenance-container {
+    padding: 12px;
+  }
+  
+  .maintenance-title {
+    font-size: 22px;
+  }
+  
+  .summary-card {
+    padding: 10px 12px;
+  }
+}

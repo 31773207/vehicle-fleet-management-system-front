@@ -1,0 +1,128 @@
+/* TOPBAR */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 24px;
+  background: var(--sidebar-bg);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #005eff;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.topbar-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+.topbar-notifications {
+  position: relative;
+  font-size: 16px;
+}
+
+.topbar-bell {
+  background: transparent;
+  border: 1px solid #005eff;
+  border-radius: 8px;
+  padding: 8px 14px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.topbar-bell:hover {
+  background: #4f8fff65;
+  border-color: #0040ae;
+}
+
+.topbar-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #dc3545;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.topbar-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 420px;
+  max-height: 500px;
+  overflow-y: auto;
+  background:#010823f4;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  z-index: 200;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.topbar-empty {
+  padding: 16px;
+  color: #aaa;
+  font-size: 13px;
+  text-align: center;
+}
+
+.topbar-item {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.topbar-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.topbar-item-title {
+  font-weight: bold;
+  font-size: 15px;
+  color: #000c2b;
+  margin-bottom: 4px;
+}
+
+.topbar-item-message {
+  font-size: 12px;
+  color: #ccc;
+  margin-bottom: 4px;
+}
+
+.topbar-item-time {
+  font-size: 10px;
+  color: #888;
+}
+.topbar-item-title {
+  font-weight: bold;
+  font-size: 15px;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.topbar-dropdown::-webkit-scrollbar {
+  width: 13px;
+}
+
+.topbar-dropdown::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.topbar-dropdown::-webkit-scrollbar-thumb {
+  background: #011e90d2;
+  border-radius: 10px;
+}
+
+.topbar-dropdown::-webkit-scrollbar-thumb:hover {
+  background: #010823d2;
+}
