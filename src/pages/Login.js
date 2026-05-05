@@ -10,34 +10,26 @@ function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        'http://localhost:8080/api/auth/login',
-        { username, password }
-      );
-
-      const u = (username || 'admin').toLowerCase();
-      const role = u.startsWith('respons')
-        ? 'RESPONSABLE'
-        : u.startsWith('manager')
-        ? 'MANAGER'
-        : 'ADMIN';
-
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('role', role);
-      localStorage.setItem('username', response.data.username);
-
-      window.location.href = '/dashboard';
-    } catch (err) {
-      setError(
-        err.response?.data?.message ||
-        err.message ||
-        'Invalid username or password!'
-      );
-    }
-  };
+  // In Login.js - handleLogin function
+const handleLogin = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await axios.post('http://localhost:8080/api/auth/login', { username, password });
+    
+    // Get role from response or determine from username
+const userRole = response.data.role || 
+                 (username.toLowerCase().startsWith('respons') ? 'RESPONSABLE' :
+                  username.toLowerCase().startsWith('manager') ? 'MANAGER' : 'ADMIN');
+    
+    localStorage.setItem('token', response.data.token);
+    localStorage.setItem('role', userRole);
+    localStorage.setItem('username', response.data.username);
+    
+    window.location.href = '/dashboard';
+  } catch (err) {
+    setError('Invalid username or password!');
+  }
+};
 
   return (
     <div style={styles.container}>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../services/api';
+import api from '../../services/api';  // ✅ This is enough
 import PageLayout from '../../components/layout/PageLayout';
 import { useToast } from '../../contexts/ToastContext';
 import { Modal } from '../../components/common/Modal';
@@ -18,6 +18,8 @@ import {
   DeactivateButton
 } from '../../components/common/Button';
 import "./Users.css";
+// ✅ REMOVED: import axios from 'axios';
+// ✅ REMOVED: const api = axios.create(...);
 
 function Users() {
   const [users, setUsers] = useState([]);
@@ -112,7 +114,7 @@ function Users() {
       </span>
     );
   };
-
+  
   return (
     <PageLayout>
       <div className="content-header">

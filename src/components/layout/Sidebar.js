@@ -8,7 +8,7 @@ import '../../components/layout/Topbar.css';
 const ALL_NAV_ITEMS = [
   { path: '/dashboard',        icon: 'fa-home',            label: 'Dashboard',     roles: ['ADMIN', 'MANAGER', 'RESPONSABLE'] },
   { path: '/vehicles',         icon: 'fa-car',             label: 'Vehicles',      roles: ['ADMIN', 'MANAGER', 'RESPONSABLE'] },
-  { path: '/drivers',          icon: 'fa-id-badge',        label: 'Employees',     roles: ['ADMIN', 'MANAGER', 'RESPONSABLE'] },
+  { path: '/drivers',          icon: 'fa-id-badge',        label: 'Employees',     roles: ['ADMIN', 'MANAGER'] }, // ✅ Remove RESPONSABLE
   { path: '/missions',         icon: 'fa-route',           label: 'Missions',      roles: ['ADMIN', 'MANAGER', 'RESPONSABLE'] },
   { path: '/maintenance',      icon: 'fa-tools',           label: 'Maintenance',   roles: ['ADMIN', 'MANAGER', 'RESPONSABLE'] },
   { path: '/technical-checks', icon: 'fa-clipboard-check', label: 'Tech Checks',   roles: ['ADMIN', 'MANAGER', 'RESPONSABLE'] },
@@ -18,7 +18,7 @@ const ALL_NAV_ITEMS = [
     roles: ['ADMIN', 'MANAGER', 'RESPONSABLE'],
     subItems: [
       { path: '/gas-coupons', icon: 'fa-box', label: 'Inventory', roles: ['ADMIN', 'MANAGER', 'RESPONSABLE'] },
-      { path: '/coupon-assignments', icon: 'fa-exchange-alt', label: 'Assignments', roles: ['ADMIN', 'MANAGER'] }
+      { path: '/coupon-assignments', icon: 'fa-exchange-alt', label: 'Assignments', roles: ['ADMIN', 'MANAGER'] } // ✅ Only ADMIN and MANAGER
     ]
   },
   { path: '/users',            icon: 'fa-users-cog',       label: 'Users',         roles: ['ADMIN'] },
