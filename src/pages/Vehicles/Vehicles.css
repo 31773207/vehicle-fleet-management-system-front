@@ -1,0 +1,83 @@
+/* ===== VEHICLES PAGE CSS ===== */
+
+/* Vehicles Filters */
+.vehicles-filters {
+  margin-bottom: 20px;
+}
+
+/* Vehicle Plate Number */
+.vehicle-plate {
+  font-weight: bold;
+  color: var(--primary);
+}
+
+/* Vehicle Status Badge */
+.vehicle-status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Vehicle Card */
+.vehicle-card {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+
+.vehicle-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary);
+}
+
+/* Vehicle Table */
+.vehicles-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.vehicles-table th,
+.vehicles-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.vehicles-table th {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* Vehicle Actions */
+.vehicle-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Vehicle specific responsive */
+@media (max-width: 768px) {
+  .vehicles-table th,
+  .vehicles-table td {
+    padding: 8px 6px;
+    font-size: 12px;
+  }
+  
+  .vehicle-actions {
+    gap: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .vehicle-card {
+    padding: 12px;
+  }
+  
+  .vehicle-plate {
+    font-size: 14px;
+  }
+}
