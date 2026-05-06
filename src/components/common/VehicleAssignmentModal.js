@@ -4,38 +4,102 @@ import { FormInput } from './FormInput';
 import { SaveButton, CancelButton } from './Button';
 import { useToast } from '../../contexts/ToastContext';
 
-export function VehicleAssignmentModal({
-  isOpen,
-  onClose,
-  onAssign,
-  onRemove,
-  employee,
-  vehicles,
-  manageHistory,
-  onRefresh
-}) {
+// HISTORY MODAL - Separate component
+function HistoryModal({ isOpen, onClose, employee, manageHistory }) {
+  if (!employee) return null;
+  
+  const hist = manageHistory[employee.id] || { current: null, history: [] };
+  const allAssignments = [
+    ...(hist.current ? [{ ...hist.current, isCurrent: true }] : []),
+    ...hist.history
+  ];
+
+  return (
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      title={`Assignment History — ${employee.firstName} ${employee.lastName}`}
+      size="lg"
+    >
+      <div style={{ marginBottom: '20px' }}>
+        <div style={{ color: '#FFD700', marginBottom: '10px' }}>
+          <i className="fas fa-history"></i> Assignment History
+        </div>
+
+        {allAssignments.length > 0 ? (
+          <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
+            {allAssignments.map((h, idx) => (
+              <div
+                key={idx}
+                style={{
+                  padding: '12px',
+                  borderBottom: '1px solid rgba(255,255,255,0.1)',
+                  background: h.isCurrent
+                    ? 'rgba(40,167,69,0.1)'
+                    : 'transparent',
+                  borderRadius: '8px',
+                  marginBottom: '8px'
+                }}
+              >
+                <div style={{ fontWeight: 'bold' }}>
+                  <i className="fas fa-car"></i> {h.vehicle?.plateNumber}
+                  {' - '}
+                  {h.vehicle?.brand?.brandName} {h.vehicle?.model}
+                  {h.isCurrent && (
+                    <span style={{ color: '#28a745', marginLeft: '10px' }}>
+                      ● CURRENT
+                    </span>
+                  )}
+                </div>
+                {h.startDate && (
+                  <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.6)', marginTop: '5px' }}>
+                    <i className="fas fa-calendar"></i> From: {new Date(h.startDate).toLocaleDateString()}
+                    {h.endDate && ` To: ${new Date(h.endDate).toLocaleDateString()}`}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p style={{ color: 'rgba(255,255,255,0.5)' }}>
+            No assignment history
+          </p>
+        )}
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          gap: '10px',
+          marginTop: '20px',
+          justifyContent: 'flex-end'
+        }}
+      >
+        <CancelButton onClick={onClose}>Close</CancelButton>
+      </div>
+    </Modal>
+  );
+}
+
+// ASSIGN MODAL - Separate component
+function AssignModal({ isOpen, onClose, onAssign, employee, vehicles, onRefresh }) {
   const [assignVehicleId, setAssignVehicleId] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [mode, setMode] = useState('history'); // ✅ ONLY ONE MODE SOURCE
-
   const { addToast } = useToast();
 
-  // Reset form when modal opens
   useEffect(() => {
     if (isOpen) {
       setAssignVehicleId('');
       setStartDate('');
       setEndDate('');
       setIsSubmitting(false);
-      setMode('history'); // reset tab when opening
     }
   }, [isOpen]);
 
   if (!employee) return null;
 
-  // Vehicle options
   const vehicleOptions = [
     { value: '', label: '-- Select Vehicle --' },
     ...vehicles
@@ -51,16 +115,9 @@ export function VehicleAssignmentModal({
       }))
   ];
 
-  const hist = manageHistory[employee.id] || { current: null, history: [] };
-  const allAssignments = [
-    ...(hist.current ? [{ ...hist.current, isCurrent: true }] : []),
-    ...hist.history
-  ];
-
-  // ASSIGN
   const handleAssign = async () => {
     if (!assignVehicleId) {
-      addToast('❌ Please select a vehicle', 'error');
+      addToast('Please select a vehicle', 'error');
       return;
     }
 
@@ -85,164 +142,45 @@ export function VehicleAssignmentModal({
     }
   };
 
-  // REMOVE
-  const handleRemove = async () => {
-    if (
-      !window.confirm(
-        `Remove vehicle from ${employee.firstName} ${employee.lastName}?`
-      )
-    )
-      return;
-
-    setIsSubmitting(true);
-    try {
-      await onRemove(employee.id);
-
-      addToast(
-        `Vehicle removed from ${employee.firstName} ${employee.lastName}!`,
-        'success'
-      );
-
-      if (onRefresh) await onRefresh();
-      onClose();
-    } catch (error) {
-      addToast(error.response?.data?.message || error.message, 'error');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title={`Manage Vehicle — ${employee.firstName} ${employee.lastName}`}
+      title={`Assign Vehicle — ${employee.firstName} ${employee.lastName}`}
       size="lg"
     >
-      {/* TAB HEADER */}
-      <div
-        style={{
-          display: 'flex',
-          gap: '10px',
-          borderBottom: '1px solid rgba(255,215,0,0.2)',
-          marginBottom: '20px'
-        }}
-      >
-        {/* HISTORY */}
-        <button
-          onClick={() => setMode('history')}
+      <div>
+        <FormInput
+          label="Select Vehicle"
+          value={assignVehicleId}
+          onChange={setAssignVehicleId}
+          options={vehicleOptions}
+          required
+        />
+
+        <div
           style={{
-            padding: '8px 16px',
-            background: mode === 'history' ? '#FFD700' : 'transparent',
-            color: mode === 'history' ? '#001838' : '#FFD700',
-            border: 'none',
-            borderRadius: '8px',
-            cursor: 'pointer',
-            fontWeight: 'bold'
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '12px',
+            marginTop: '20px'
           }}
         >
-          <i className="fas fa-history"></i> History
-        </button>
-
-        {/* ASSIGN */}
-        {employee.employeeType === 'EMPLOYEE' && (
-          <button
-            onClick={() => setMode('assign')}
-            style={{
-              padding: '8px 16px',
-              background: mode === 'assign' ? '#FFD700' : 'transparent',
-              color: mode === 'assign' ? '#001838' : '#FFD700',
-              border: 'none',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              fontWeight: 'bold'
-            }}
-          >
-            <i className="fas fa-plus"></i> Assign Vehicle
-          </button>
-        )}
+          <FormInput
+            label="Start Date"
+            type="date"
+            value={startDate}
+            onChange={setStartDate}
+          />
+          <FormInput
+            label="End Date"
+            type="date"
+            value={endDate}
+            onChange={setEndDate}
+          />
+        </div>
       </div>
 
-      {/* HISTORY SECTION */}
-      {mode === 'history' && (
-        <div style={{ marginBottom: '20px' }}>
-          <div style={{ color: '#FFD700', marginBottom: '10px' }}>
-            <i className="fas fa-history"></i> Assignment History
-          </div>
-
-          {allAssignments.length > 0 ? (
-            <div style={{ maxHeight: '300px', overflowY: 'auto' }}>
-              {allAssignments.map((h, idx) => (
-                <div
-                  key={idx}
-                  style={{
-                    padding: '12px',
-                    borderBottom: '1px solid rgba(255,255,255,0.1)',
-                    background: h.isCurrent
-                      ? 'rgba(40,167,69,0.1)'
-                      : 'transparent',
-                    borderRadius: '8px',
-                    marginBottom: '8px'
-                  }}
-                >
-                  <div style={{ fontWeight: 'bold' }}>
-                    <i className="fas fa-car"></i> {h.vehicle?.plateNumber}
-                    {' - '}
-                    {h.vehicle?.brand?.brandName} {h.vehicle?.model}
-                    {h.isCurrent && (
-                      <span style={{ color: '#28a745', marginLeft: '10px' }}>
-                        ● CURRENT
-                      </span>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p style={{ color: 'rgba(255,255,255,0.5)' }}>
-              No assignment history
-            </p>
-          )}
-        </div>
-      )}
-
-      {/* ASSIGN FORM */}
-      {mode === 'assign' &&
-        employee.employeeType === 'EMPLOYEE' && (
-          <div>
-            <FormInput
-              label="Select Vehicle"
-              value={assignVehicleId}
-              onChange={setAssignVehicleId}
-              options={vehicleOptions}
-              required
-            />
-
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: '12px',
-                marginTop: '20px'
-              }}
-            >
-              <FormInput
-                label="Start Date"
-                type="date"
-                value={startDate}
-                onChange={setStartDate}
-              />
-              <FormInput
-                label="End Date"
-                type="date"
-                value={endDate}
-                onChange={setEndDate}
-              />
-            </div>
-          </div>
-        )}
-
-      {/* BUTTONS */}
       <div
         style={{
           display: 'flex',
@@ -251,16 +189,52 @@ export function VehicleAssignmentModal({
           justifyContent: 'flex-end'
         }}
       >
-        <CancelButton onClick={handleRemove} disabled={isSubmitting}>
-          Remove
-        </CancelButton>
-
+        <CancelButton onClick={onClose}>Cancel</CancelButton>
         <SaveButton onClick={handleAssign} disabled={isSubmitting}>
-          {isSubmitting ? 'Assigning...' : 'Assign'}
+          {isSubmitting ? 'Assigning...' : 'Assign Vehicle'}
         </SaveButton>
-
-        <CancelButton onClick={onClose}>Close</CancelButton>
       </div>
     </Modal>
   );
+}
+
+// MAIN VEHICLE ASSIGNMENT MODAL - Now just a wrapper that shows the right modal based on mode
+export function VehicleAssignmentModal({
+  isOpen,
+  onClose,
+  onAssign,
+  onRemove,
+  employee,
+  vehicles,
+  manageHistory,
+  onRefresh,
+  mode // 'history' or 'assign'
+}) {
+  // If mode is 'history', show HistoryModal
+  if (mode === 'history') {
+    return (
+      <HistoryModal
+        isOpen={isOpen}
+        onClose={onClose}
+        employee={employee}
+        manageHistory={manageHistory}
+      />
+    );
+  }
+  
+  // If mode is 'assign', show AssignModal
+  if (mode === 'assign') {
+    return (
+      <AssignModal
+        isOpen={isOpen}
+        onClose={onClose}
+        onAssign={onAssign}
+        employee={employee}
+        vehicles={vehicles}
+        onRefresh={onRefresh}
+      />
+    );
+  }
+  
+  return null;
 }
