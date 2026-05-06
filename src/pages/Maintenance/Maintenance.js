@@ -163,7 +163,7 @@ function Maintenance() {
 
   return (
     <PageLayout>
-      <div className="page-header">
+      <div className="content-header">
         <h2 className="content-header">Maintenance</h2>
         {canEdit() && <AddButton onClick={() => { setEditMaintenance(null); setShowForm(true); }}>+ Add Maintenance</AddButton>}
         
