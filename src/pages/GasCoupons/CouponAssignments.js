@@ -159,7 +159,7 @@ function CouponAssignments() {
               padding: '8px 12px 8px 35px',
               borderRadius: '20px',
               border: '1px solid #034f626d',
-              backgroundColor: '#00ccff55',
+              backgroundColor: '#feffff55',
               color: '#ffffffd2',
               fontSize: '14px',
               outline: 'none',
