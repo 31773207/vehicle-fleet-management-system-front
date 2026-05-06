@@ -51,21 +51,22 @@ function Drivers() {
   const [modalMode, setModalMode] = useState('history');
 
   // LOAD DATA
-  useEffect(() => {
-    fetchEmployees();
-    fetchVehicles();
-    fetchOrganizations();
-  }, []);
+  // LOAD DATA
+useEffect(() => {
+  fetchEmployees();
+  fetchVehicles();
+  fetchOrganizations();
+}, []);
 
-  useEffect(() => {
-    employees.forEach(e => fetchEmployeeHistory(e.id));
-  }, [employees]);
+useEffect(() => {
+  employees.forEach(e => fetchEmployeeHistory(e.id));  // ← FIXED TYPO HERE
+}, [employees]);
 
-  const refreshAllData = async () => {
-    await fetchEmployees();
-    await fetchVehicles();
-    employees.forEach(e => fetchEmployeeHistory(e.id));
-  };
+const refreshAllData = async () => {
+  await fetchEmployees();
+  await fetchVehicles();
+  employees.forEach(e => fetchEmployeeHistory(e.id));  // ← ALSO FIX HERE IF PRESENT
+};
 
   const { drivers, emps } = splitEmployees(employees);
   const filteredDrivers = filterDrivers(drivers, search, filter);
@@ -113,17 +114,19 @@ function Drivers() {
     );
   };
 
-  const openHistory = (person) => {
-    setSelectedEmployee(person);
-    setModalMode('history');
-    setShowAssignModal(true);
-  };
+ // Update these functions in Drivers.js:
 
-  const openAssign = (person) => {
-    setSelectedEmployee(person);
-    setModalMode('assign');
-    setShowAssignModal(true);
-  };
+const openHistory = (person) => {
+  setSelectedEmployee(person);
+  setModalMode('history');  // ← ADD THIS - set mode to 'history'
+  setShowAssignModal(true);
+};
+
+const openAssign = (person) => {
+  setSelectedEmployee(person);
+  setModalMode('assign');   // ← ADD THIS - set mode to 'assign'
+  setShowAssignModal(true);
+};
 
   // Employee Card Component
   const EmployeeCard = ({ person, type }) => {
@@ -182,7 +185,7 @@ function Drivers() {
                   {hist.current.endDate && (
                     <>
                       <span>→</span>
-                      <span style={{ color: '#ffc107' }}>
+                      <span style={{ color: '#fb3131' }}>
                         <i className="fas fa-calendar-alt"></i> 
                         {new Date(hist.current.endDate).toLocaleDateString()}
                       </span>
@@ -290,16 +293,16 @@ function Drivers() {
 
       {/* Vehicle Assignment Modal */}
       <VehicleAssignmentModal
-        isOpen={showAssignModal}
-        onClose={() => { setShowAssignModal(false); setSelectedEmployee(null); }}
-        onAssign={assignVehicle}
-        onRemove={handleRemove}
-        employee={selectedEmployee}
-        vehicles={vehicles}
-        manageHistory={manageHistory}
-        onRefresh={refreshAllData}
-        mode={modalMode}
-      />
+       isOpen={showAssignModal}
+  onClose={() => { setShowAssignModal(false); setSelectedEmployee(null); }}
+  onAssign={assignVehicle}
+  onRemove={handleRemove}
+  employee={selectedEmployee}
+  vehicles={vehicles}
+  manageHistory={manageHistory}
+  onRefresh={refreshAllData}
+  mode={modalMode} // Pass the mode from state
+/>
     </PageLayout>
   );
 }
