@@ -166,15 +166,7 @@ function Maintenance() {
       <div className="content-header">
         <h2 className="content-header">Maintenance</h2>
         {canEdit() && <AddButton onClick={() => { setEditMaintenance(null); setShowForm(true); }}>+ Add Maintenance</AddButton>}
-        
-      </div>
-
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12, marginBottom: 20 }}>
-        <SummaryCard icon="fa-spinner" color="#17a2b8" label="In Progress" value={counts.IN_PROGRESS} />
-        <SummaryCard icon="fa-calendar" color="#fbbc04" label="Scheduled" value={counts.SCHEDULED} />
-        <SummaryCard icon="fa-check-double" color="#28a745" label="Completed" value={counts.COMPLETED} />
-        <SummaryCard icon="fa-coins" color="#FFD700" label="Total Cost" value={`${totalCost.toLocaleString("fr-DZ")} DZD`} />
-      </div>
+      
 
       <FilterBar
         filters={["All", "IN_PROGRESS", "SCHEDULED", "COMPLETED"]}
