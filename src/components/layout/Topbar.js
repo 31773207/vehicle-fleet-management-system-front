@@ -64,16 +64,6 @@ function Topbar({ onMenuToggle }) {
 
 <div className="topbar-title">
   <div style={{ display: 'flex', alignItems: 'center', gap: '10px',color: '#020d4b' }}>
-  <img 
-    src={bankLogo} 
-    alt="Bank Of Algeria" 
-    style={{ 
-      width: '80px', 
-      height: '40px', 
-      objectFit: 'contain'
-
-    }} 
-  />
   Bank Of Algeria
   </div>      
 
