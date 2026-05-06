@@ -96,7 +96,7 @@ function GasCoupons() {
       </div>
 
       {/* Summary Cards - Removed "Remaining" card */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12, marginBottom: 20 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12, marginBottom: 20,  fontSize: 20 }}>
         <SummaryCard icon="fa-database" color="#001345" label="Total Bought" value={stats.totalBought} />
         <SummaryCard icon="fa-ticket-alt" color="#28a745" label="Available" value={availableQuantity} />
         <SummaryCard icon="fa-check-circle" color="#17a2b8" label="Used" value={totalUsed} />
@@ -166,14 +166,14 @@ function GasCoupons() {
 function SummaryCard({ icon, color, label, value }) {
   return (
     <div style={{
-      background: "rgba(0,0,0,0.4)", borderRadius: 10,
+      background: "rgba(42, 60, 98, 0.61)", borderRadius: 10,
       padding: "14px 16px",
-      borderLeft: `3px solid ${color}`,
+      borderLeft: `4px solid ${color}`,
       backdropFilter: "blur(8px)"
     }}>
       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-        <span style={{ fontSize: 11, color: "rgba(255,255,255,0.5)" }}>{label}</span>
-        <i className={`fas ${icon}`} style={{ color, fontSize: 14 }}></i>
+        <span style={{ fontSize: 18, color: "rgba(255,255,255,0.5)" }}>{label}</span>
+        <i className={`fas ${icon}`} style={{ color, fontSize: 20 }}></i>
       </div>
       <div style={{ fontSize: 22, fontWeight: 700, color }}>{value}</div>
     </div>
