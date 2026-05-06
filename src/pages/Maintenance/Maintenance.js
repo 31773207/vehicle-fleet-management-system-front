@@ -123,7 +123,7 @@ function Maintenance() {
 
   const columns = [
     { key: "id", label: "ID", width: "55px" },
-    { key: "vehicle", label: "Vehicle", render: (v) => <strong style={{ color: "#17a2b8" }}>{v?.plateNumber || "—"}</strong> },
+    { key: "vehicle", label: "Vehicle", render: (v) => <strong style={{ color: "#7facf9" }}>{v?.plateNumber || "—"}</strong> },
     { key: "maintenanceType", label: "Type" },
     { key: "startDate", label: "Start" },
     { key: "endDate", label: "End", render: (v) => v || <span style={{ color: "rgba(255,255,255,0.3)" }}>Ongoing</span> },
@@ -166,6 +166,9 @@ function Maintenance() {
       <div className="content-header">
         <h2 className="content-header">Maintenance</h2>
         {canEdit() && <AddButton onClick={() => { setEditMaintenance(null); setShowForm(true); }}>+ Add Maintenance</AddButton>}
+        
+      </div>
+
       
 
       <FilterBar
