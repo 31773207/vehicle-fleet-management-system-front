@@ -109,7 +109,7 @@ function CouponAssignments() {
             style={{
               padding: '8px 16px',
               background: activeTab === "assignments" ? '#010823' : 'transparent',
-              color: activeTab === "assignments" ? '#00ccff' : '#010823',
+              color: activeTab === "assignments" ? '#7facf9' : '#010823',
               border: 'none',
               borderRadius: '8px',
               cursor: 'pointer',
@@ -123,7 +123,7 @@ function CouponAssignments() {
             style={{
               padding: '8px 16px',
               background: activeTab === "transfers" ? '#010823' : 'transparent',
-              color: activeTab === "transfers" ? '#00ccff' : '#010823',
+              color: activeTab === "transfers" ? '#7facf9' : '#010823',
               border: 'none',
               borderRadius: '8px',
               cursor: 'pointer',
