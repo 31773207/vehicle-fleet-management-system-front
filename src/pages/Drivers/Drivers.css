@@ -245,12 +245,12 @@
 
 .vehicle-plate {
   font-weight: bold;
-  color: var(--primary);
-  font-size: 14px;
+  color:#3dabff;
+  font-size: 18px;
 }
 
 .current-assignment-details {
-  font-size: 12px;
+  font-size: 15px;
 }
 
 .vehicle-model {
@@ -264,7 +264,7 @@
   gap: 8px;
   flex-wrap: wrap;
   align-items: center;
-  font-size: 11px;
+  font-size: 15px;
 }
 
 .history-arrow {
@@ -281,7 +281,7 @@
 }
 
 .empty-icon {
-  color: #FFD700;
+  color: #00ccff;
   font-size: 24px;
   display: block;
   margin-bottom: 5px;
