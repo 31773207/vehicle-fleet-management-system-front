@@ -24,8 +24,8 @@ background: 'var(--tab)',  // Darker, less transparency
 
       borderRadius: '12px',
       overflowX: 'auto',
-      backdropFilter: 'blur(10px)',
-      border: '1px solid rgba(255,215,0,0.25)',
+      backdropFilter: 'blur(0.5px)',
+      border: '1px solid #374151',
       boxShadow: '0 4px 20px rgba(0,0,0,0.3)'
     }}>
       {/* Table header and body */}
@@ -37,13 +37,13 @@ background: 'var(--tab)',  // Darker, less transparency
         <thead>
           <tr style={{
             background: '#010823d2',
-            borderBottom: '1px solid #75cbfd',
+            borderBottom: '1px solid #005eff',
           }}>
             {columns.map(col => (
               <th key={col.key} style={{
                 padding: '14px 16px',
                 textAlign: 'left',
-                color: '#75cbfd',
+                color: '#7facf9',
                 fontSize: '16px',
                 fontWeight: '700',
                 textTransform: 'uppercase',
