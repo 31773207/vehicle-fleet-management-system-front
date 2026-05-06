@@ -60,7 +60,7 @@
 
 /* Table Wrapper */
 .users-table-wrapper {
-  background: #1f2937cf;
+  background: var(--tab);
   border-radius: 12px;
   border: 1px solid #374151;
   overflow-x: auto;
@@ -72,7 +72,7 @@
 }
 
 .users-table thead tr {
-  border-bottom: 1px solid #374151;
+  border-bottom: 1px solid #010823d2;
 }
 
 .users-table th {
@@ -83,16 +83,16 @@
   font-size: 15px;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  background: #2a3c64b6;
+  background: #010823d2;
 }
 
 .users-table tbody tr {
-  border-bottom: 1px solid #37415141;
+  border-bottom: 1px solid #010823d2;
   transition: background 0.2s ease;
 }
 
 .users-table tbody tr:hover {
-  background: #78abfc53;
+  background: #c1c8e23a;
 }
 
 .users-table td {
