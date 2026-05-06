@@ -14,14 +14,14 @@
   background: var(--tab);
   border-radius: 12px;
   padding: 20px;
-  border: 3px solid #005eff;
+  border: 2px solid #374151;
   backdrop-filter: blur(10px);
   transition: all 0.2s;
 }
 
 .driver-card:hover {
   transform: translateY(-8px);
-  border-color: #3dabff;
+  border-color: #3dabff9b;
 }
 
 /* Card Top */
@@ -41,7 +41,7 @@
   height: 80px;
   border-radius: 50%;
   background: #001345;
-  border: 2px solid #005eff;
+  border: 2px solid #3dabff9b;
   display: flex;
   align-items: center;
   justify-content: center;
