@@ -17,12 +17,12 @@
 .mission-id {
   font-weight: bold;
   font-size: 19px;
-  color: #17a2b8;
+  color: #7facf9;
 }
 
 .mission-timestamp {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.4);
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.584);
   margin-top: 4px;
 }
 
