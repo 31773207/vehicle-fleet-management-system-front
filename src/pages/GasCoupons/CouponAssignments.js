@@ -74,8 +74,6 @@ function CouponAssignments() {
     { key: "batch", label: "Batch Number", render: (v) => v?.batchNumber || "—" },
     { key: "employee", label: "Employee", render: (v) => v ? `${v.firstName} ${v.lastName}` : "—" },
     { key: "quantity", label: "Total Received", render: (v) => v || 0 },
-    { key: "remaining", label: "Remaining", render: (v) => v || 0 },
-    { key: "usedQuantity", label: "Used", render: (v) => v || 0 },
     { key: "assignedDate", label: "Assigned Date", render: (v) => v || "—" },
     { key: "status", label: "Status", render: (v) => getStatusBadge(v) },
   ];
