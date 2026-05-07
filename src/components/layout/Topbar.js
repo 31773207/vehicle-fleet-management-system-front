@@ -64,6 +64,7 @@ function Topbar({ onMenuToggle }) {
 
 <div className="topbar-title">
   <div style={{ display: 'flex', alignItems: 'center', gap: '10px',color: '#020d4b' }}>
+ 
   Bank Of Algeria
   </div>      
 
