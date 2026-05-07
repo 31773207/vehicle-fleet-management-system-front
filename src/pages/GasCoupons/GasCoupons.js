@@ -60,9 +60,8 @@ function GasCoupons() {
   const columns = [
     { key: "id", label: "ID", width: "60px" },
     { key: "batchNumber", label: "Batch Number", render: (v) => v || "—"},
-    { key: "quantityBought", label: "Bought", render: (v) => v || 0 },
+    { key: "quantityBought", label: "quantity Bought", render: (v) => v || 0 },
     { key: "quantityRemaining", label: "Remaining", render: (v) => v || 0 },
-    { key: "fuelAmount", label: "Fuel (L)", render: (v) => `${v || 0} L` },
     { key: "buyDate", label: "Buy Date", render: (v) => v || "—" },
     { key: "expiryDate", label: "Expiry Date", render: (v) => v || "—" },
     { key: "status", label: "Status", render: (v) => <Badge status={v} label={getStatusLabel(v)} /> },
