@@ -5,7 +5,7 @@ import { FilterBar } from '../../components/common/FilterBar';
 import { EmployeeFormModal } from '../../components/common/EmployeeFormModal';
 import { VehicleAssignmentModal } from '../../components/common/VehicleAssignmentModal';
 import { useEmployees } from "../../hooks/useEmployees";
-import { canEdit } from "../../utils/roles";
+import { canEdit, canViewDrivers, canViewEmployees } from "../../utils/roles";  // ✅ Import both
 import { ConfirmModal } from '../../components/common/ConfirmModal';
 import { useConfirm } from '../../hooks/useConfirm';
 import { useToast } from '../../contexts/ToastContext';
@@ -25,7 +25,7 @@ import './Drivers.css';
 function Drivers() {
   const { addToast } = useToast();
   const { confirmState, showConfirm, hideConfirm } = useConfirm();
-  
+
   const {
     employees,
     vehicles,
@@ -51,22 +51,21 @@ function Drivers() {
   const [modalMode, setModalMode] = useState('history');
 
   // LOAD DATA
-  // LOAD DATA
-useEffect(() => {
-  fetchEmployees();
-  fetchVehicles();
-  fetchOrganizations();
-}, []);
+  useEffect(() => {
+    fetchEmployees();
+    fetchVehicles();
+    fetchOrganizations();
+  }, []);
 
-useEffect(() => {
-  employees.forEach(e => fetchEmployeeHistory(e.id));  // ← FIXED TYPO HERE
-}, [employees]);
+  useEffect(() => {
+    employees.forEach(e => fetchEmployeeHistory(e.id));
+  }, [employees]);
 
-const refreshAllData = async () => {
-  await fetchEmployees();
-  await fetchVehicles();
-  employees.forEach(e => fetchEmployeeHistory(e.id));  // ← ALSO FIX HERE IF PRESENT
-};
+  const refreshAllData = async () => {
+    await fetchEmployees();
+    await fetchVehicles();
+    employees.forEach(e => fetchEmployeeHistory(e.id));
+  };
 
   const { drivers, emps } = splitEmployees(employees);
   const filteredDrivers = filterDrivers(drivers, search, filter);
@@ -78,14 +77,6 @@ const refreshAllData = async () => {
     fetchEmployees();
     setShowForm(false);
     setEditEmployee(null);
-     //addToast(`Employee ${form.firstName} ${form.lastName} saved successfully`, 'success'); 
-  };
-
-  const handleAssignSuccess = () => {
-    fetchEmployees();
-    fetchVehicles();
-    setShowAssignModal(false);
-    setSelectedEmployee(null);
   };
 
   const handleRemove = (employeeId, employeeName) => {
@@ -95,7 +86,6 @@ const refreshAllData = async () => {
       async () => {
         await removeVehicle(employeeId);
         await refreshAllData();
-        //addToast(`✅ Vehicle removed from ${employeeName}`, 'success');
       },
       'warning'
     );
@@ -108,25 +98,22 @@ const refreshAllData = async () => {
       async () => {
         await deleteEmployee(id);
         await fetchEmployees();
-        //addToast(`✅ Employee ${name} deleted`, 'success');
       },
       'danger'
     );
   };
 
- // Update these functions in Drivers.js:
+  const openHistory = (person) => {
+    setSelectedEmployee(person);
+    setModalMode('history');
+    setShowAssignModal(true);
+  };
 
-const openHistory = (person) => {
-  setSelectedEmployee(person);
-  setModalMode('history');  // ← ADD THIS - set mode to 'history'
-  setShowAssignModal(true);
-};
-
-const openAssign = (person) => {
-  setSelectedEmployee(person);
-  setModalMode('assign');   // ← ADD THIS - set mode to 'assign'
-  setShowAssignModal(true);
-};
+  const openAssign = (person) => {
+    setSelectedEmployee(person);
+    setModalMode('assign');
+    setShowAssignModal(true);
+  };
 
   // Employee Card Component
   const EmployeeCard = ({ person, type }) => {
@@ -164,7 +151,8 @@ const openAssign = (person) => {
             <button className="btn-history" onClick={() => openHistory(person)}>
               <i className="fas fa-history"></i> History
             </button>
-            {type === 'EMPLOYEE' && (
+            {/* ✅ Only EMPLOYEE type and if user can edit */}
+            {type === 'EMPLOYEE' && canEdit() && (
               <button className="btn-assign" onClick={() => openAssign(person)}>
                 <i className="fas fa-plus"></i> Assign
               </button>
@@ -202,6 +190,7 @@ const openAssign = (person) => {
           )}
         </div>
 
+        {/* ✅ Only show edit/delete buttons if user can edit */}
         {canEdit() && (
           <div className="card-buttons">
             <EditButton onClick={() => { setEditEmployee(person); setShowForm(true); }} />
@@ -218,7 +207,8 @@ const openAssign = (person) => {
   return (
     <PageLayout>
       <div className="content-header">
-        <h2 >Employees</h2>
+        <h2>Employees</h2>
+        {/* ✅ Only show Add button if user can edit */}
         {canEdit() && (
           <AddButton onClick={() => { setShowForm(true); setEditEmployee(null); }}>
             + Add Employee
@@ -235,8 +225,8 @@ const openAssign = (person) => {
           onSearchChange={setSearch}
         />
 
-        {/* DRIVERS SECTION */}
-        {canShowDrivers && filteredDrivers.length > 0 && (
+        {/* DRIVERS SECTION - ✅ Only show if user can view drivers */}
+        {canViewDrivers() && canShowDrivers && filteredDrivers.length > 0 && (
           <>
             <div className="title">
               <h3>Drivers</h3>
@@ -250,8 +240,8 @@ const openAssign = (person) => {
           </>
         )}
 
-        {/* EMPLOYEES SECTION */}
-        {canShowEmployees && filteredEmployees.length > 0 && (
+        {/* EMPLOYEES SECTION - ✅ Only show if user can view employees */}
+{canViewEmployees() && canShowEmployees && filteredEmployees.length > 0 && (
           <>
             <div className="title">
               <h3>Employees</h3>
@@ -293,16 +283,16 @@ const openAssign = (person) => {
 
       {/* Vehicle Assignment Modal */}
       <VehicleAssignmentModal
-       isOpen={showAssignModal}
-  onClose={() => { setShowAssignModal(false); setSelectedEmployee(null); }}
-  onAssign={assignVehicle}
-  onRemove={handleRemove}
-  employee={selectedEmployee}
-  vehicles={vehicles}
-  manageHistory={manageHistory}
-  onRefresh={refreshAllData}
-  mode={modalMode} // Pass the mode from state
-/>
+        isOpen={showAssignModal}
+        onClose={() => { setShowAssignModal(false); setSelectedEmployee(null); }}
+        onAssign={assignVehicle}
+        onRemove={handleRemove}
+        employee={selectedEmployee}
+        vehicles={vehicles}
+        manageHistory={manageHistory}
+        onRefresh={refreshAllData}
+        mode={modalMode}
+      />
     </PageLayout>
   );
 }
