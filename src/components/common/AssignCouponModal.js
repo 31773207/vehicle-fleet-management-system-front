@@ -18,6 +18,23 @@ export function AssignCouponModal({ isOpen, onClose, onSuccess, batch }) {
     }
   }, [isOpen]);
 
+  // Fetch fresh batch data before assigning
+// Should be similar to this:
+const handleAssign = async () => {
+  try {
+    const response = await api.post(`/gas-coupons/${batch.id}/assign`, null, {
+      params: {
+        employeeId: selectedEmployeeId,
+        quantity: quantityToAssign
+      }
+    });
+    // Success handling...
+  } catch (error) {
+    console.error('Error details:', error.response?.data);
+    addToast(error.response?.data?.message || 'Error assigning coupons', 'error');
+  }
+};
+
   const fetchEmployees = async () => {
     try {
       const res = await api.get('/employees');
